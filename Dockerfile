@@ -3,8 +3,8 @@ FROM python:3.8
 RUN apt-get -y update; apt install libpq-dev python3-dev -y
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
-WORKDIR /src
-COPY requirements.txt /src/
+ARG DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
+COPY . /Blog_project
+WORKDIR /Blog_project
 RUN pip install -r requirements.txt
-COPY . /src/
+WORKDIR /Blog_project/src/blog_project

@@ -1,4 +1,26 @@
-version: "3.9"
 services:
-  django:
-    build:
+  db:
+    image: postgres
+    working_dir: /Blog_project
+    volumes:
+      - ./data/db:/var/lib/postgresql/data:rw
+    environment:
+      - POSTGRES_NAME=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - /Blog_project/src:/src
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    # links:
+    #   - db:db
+    depends_on:
+      - db
