@@ -1,17 +1,17 @@
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 from django.urls import reverse
 # Create your models here.
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
-    create_date = models.DateTimeField(default=timezone.now())
-    publlished_date = models.DateTimeField(blank=True, null=True)
+    create_date = models.DateTimeField(default=now())
+    published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self): 
-        self.publlished_date = timezone.now()
+        self.published_date = now()
         self.save()
 
     def approve_comment(self):
@@ -25,10 +25,10 @@ class Post(models.Model):
     
 
 class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_names='comments')
+    post = models.ForeignKey('blog.Post', related_name='comment', on_delete=models.CASCADE)
     author = models.CharField(max_length=200)
     text = models.TextField()
-    create_date = models.DateTimeField(default=timezone.now())
+    create_date = models.DateTimeField(default=now())
     approved_comment = models.BooleanField(default=False)
 
     def approve(self):

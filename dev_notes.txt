@@ -1,2 +1,6 @@
 how to deploy to eb
 https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
+
+
+docker compose run web python manage.py runserver
+docker compose run web python manage.py migrate
