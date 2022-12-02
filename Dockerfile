@@ -6,5 +6,9 @@ ENV PYTHONUNBUFFERED=1
 ARG DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
 COPY . /Blog_project
 WORKDIR /Blog_project
+# RUN chmod +x docker-entrypoint.sh
 RUN pip install -r requirements.txt
 WORKDIR /Blog_project/src/blog_project
+
+
+# ENTRYPOINT [ "/Blog_project/docker-entrypoint.sh" ]
