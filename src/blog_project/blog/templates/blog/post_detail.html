@@ -20,7 +20,7 @@
     </a>
 {% endif %}
 <hr>
-<a class='btn btn-primary btn-comment' href="{% url 'add_comment_to_post' pk-post.pk %}"></a>
+<a class='btn btn-primary btn-comment' href="{% url 'add_comment_to_post' pk=post.pk %}"></a>
 <div class="container"
     {% for comment in post.comments.all %}
     <br>
